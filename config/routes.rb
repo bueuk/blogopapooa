@@ -17,5 +17,4 @@ Rails.application.routes.draw do
 
   resources :archives, only: [:index]
 
-  resources :users_info, only: [:index, :edit, :update]
 end

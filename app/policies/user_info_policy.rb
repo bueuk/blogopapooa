@@ -1,2 +1,0 @@
-class UserInfoPolicy < ApplicationPolicy
-end
