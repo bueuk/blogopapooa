@@ -1,0 +1,17 @@
+<div class='form-group'>
+  <div>
+    <h2><i class="fab fa-firstdraft"></i> Archives</h2>
+
+    <% @posts_by_month.sort.reverse.each do | month, posts | %>
+      <h3><%= month.strftime('%B %Y') %></h3>
+      <ul>
+        <% posts.sort.each do | post | %>
+          <li><%= link_to post.title, blog_post_path(post), target: '_blank' %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+<% @title = 'Archives' %>
+<% @description = 'Blog Archives' %>

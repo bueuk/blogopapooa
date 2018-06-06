@@ -1,0 +1,54 @@
+<% if @post.errors.any? %>
+  <div class='alert alert-danger alert-dismissable' role='alert'>
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+    <% @post.errors.full_messages.each do |error| %>
+      <div>
+        <%= error %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_for @post do |p| %>
+<div class='form-group'>
+  <%= p.label :title %>
+  <%= p.text_field :title, class: 'form-control' %>
+</div>
+
+<div class='form-group'>
+  <%= p.label :description %>
+  <%= p.text_area :description, maxlength: @maximum_length, id: 'description', class: 'form-control', rows: '5' %>
+  Characters left: <span id="counter" data-maximum-length="<%= @maximum_length %>"><%= @maximum_length %></span>
+</div>
+
+<div class='form-group'> 
+  <%= p.label :content %>
+  <%= p.text_area :content, class: 'form-control', 'data-provider': :summernote %>
+</div>
+
+<div class='form-group'>
+  Category : 
+  <% @categories.each do |c| %>
+    <%= check_box_tag c.id, c.id, @post.categories.include?(c), name: 'blog_post[category_ids][]' %>
+    <%= label_tag c.id, c.name %>
+  <% end %> 
+</div>
+
+<div class='form-group'>
+  <%= p.submit 'Publish', name: 'submit_publish', class: 'btn btn-primary' %>
+  <%= p.submit 'Draft', name: 'submit_draft', class: 'btn btn-info' %>
+</div>
+<% end %>
+
+<script>
+    $(document).ready(function() {
+      var description = $("#description");
+      var counter     = $("#counter");
+      var maximum_length  = counter.data("maximum-length");
+
+      description.keyup(function() {
+          counter.text(maximum_length - $(this).val().length);
+      });
+
+    });
+</script>

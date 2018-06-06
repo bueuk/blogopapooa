@@ -1,0 +1,16 @@
+<% if @post.published? %>
+  <%= render 'show_post' %>
+<% elsif %>
+  <% user_signed_in? %>
+  <div>
+    <h2><i class="fab fa-firstdraft"> This is Draft Post, only visible for Admin</i></h2>
+  </div>
+    <%= render 'show_post' %>
+<% else %>
+  <div>
+    <h2>Oopss... no post found <i class="fab fa-earlybirds"></i></h2>
+  </div>
+<% end %>
+
+<% @title = @post.title %>
+<% @description = @post.description %>
