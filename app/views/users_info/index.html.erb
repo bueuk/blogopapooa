@@ -1,0 +1,33 @@
+<% if current_user.admin? %>
+  <div>
+    <button type='btn btn-primary' value='Add'></button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Level</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do | user | %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.level %></td>
+            <td><%= link_to 'Edit', edit_users_info_path(user) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+<% else %>
+  <div>
+    <h2>You dont have permission to access this page! <i class="fab fa-earlybirds"></i></h2>
+  </div>
+<% end %>

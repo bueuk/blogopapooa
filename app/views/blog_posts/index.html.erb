@@ -1,0 +1,49 @@
+<div class="post">
+  
+<% if @posts.any? %>
+  <% @posts.each do |p| %>
+    <div class="title">
+      <% if p.published? %>
+        <h2><%= link_to p.title.titleize, blog_post_path(p), class: 'text-warning' %> 
+        <% if p.sticky? %>
+          <span class="glyphicon glyphicon-pushpin"></span>
+        <% end %>
+        </h2>
+    </div>
+
+
+    <div class="meta">
+      <%= p.created_at.strftime("%d %B %Y") %> by <%= p.user.name %>
+    </div>
+
+    <div class="content">
+      <p><%= truncate(sanitize(p.content, tags: []), length: 500) %></p>
+        <% if user_signed_in? && current_user.admin? %>
+          <%= link_to 'Edit Post', edit_blog_post_path(p) %> |
+          <%= link_to 'Delete Post', blog_post_path(p), method: :delete, data: {confirm: 'Are you sure?'} %> |
+        <% if p.sticky? %>
+          <%= link_to 'Unpin', unpin_blog_post_path(p) %>
+        <% else %>
+            <%= link_to 'Pin it', pinit_blog_post_path(p) %>
+          <% end %>
+        <% end %>
+    </div>
+
+      <% end %>
+
+  <% end %>
+
+<%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+
+<% else %>
+
+  <div>
+    <h2>Oopss... no post found <i class="fab fa-earlybirds"></i></h2>
+  </div>
+
+<% end %>
+
+</div>
+
+<% @blog_title = 'Papooa' %>
+<% @description = 'Just personal blog' %>

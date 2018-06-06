@@ -1,0 +1,9 @@
+database.yml
+sitemap.xml.gz
+sitemap.rb
+config/sitemap.rb
+*.log
+log/production.log
+tmp/cache/
+*.cache
+*.swp

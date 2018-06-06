@@ -1,0 +1,59 @@
+<div class="post">
+  
+<% if @index_posts.any? %>
+  <div>
+    <h3>All Posts for Category: <%= @category.name %></h3>
+  </div>
+
+  <% @index_posts.each do |p| %>
+    <% if p.published? %>
+      <div class="title">
+        <h2><%= link_to p.title.titleize, blog_post_path(p), class: 'text-warning' %></h2>
+      </div>
+
+      <div class="meta">
+        <%= p.created_at.strftime("%d %B %Y") %> by <%= p.user.name %>
+      </div>
+
+      <div class="content">
+        <p><%= truncate(sanitize(p.content, tags: []), length: 500) %></p>
+          <% if user_signed_in? %>
+            <%= link_to 'Edit Post', edit_blog_post_path(p) %> |
+            <%= link_to 'Delete Post', blog_post_path(p), method: :delete, data: {confirm: 'Are you sure?'} %>
+          <% end %>
+      </div>
+
+    <% elsif user_signed_in? %>
+
+      <div class="title">
+        <h2><i class="fab fa-firstdraft"></i> [DRAFT] <%= link_to p.title.titleize, blog_post_path(p), class: 'text-warning' %></h2>
+      </div>
+
+      <div class="meta">
+        <%= p.created_at.strftime("%d %B %Y") %> by <%= p.user.name %>
+      </div>
+
+      <div class="content">
+        <p><%= truncate(sanitize(p.content, tags: []), length: 500) %></p>
+          <% if user_signed_in? %>
+            <%= link_to 'Edit Post', edit_blog_post_path(p) %> |
+            <%= link_to 'Delete Post', blog_post_path(p), method: :delete, data: {confirm: 'Are you sure?'} %>
+          <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+<%= will_paginate @index_posts, renderer: BootstrapPagination::Rails %>
+
+<% else %>
+
+  <div>
+    <h2>Oopss... no post found <i class="fab fa-earlybirds"></i></h2>
+  </div>
+
+<% end %>
+
+</div>
+
+<% @title = "Category #{@category.name}" %>
+<% @description = "Category #{@category.name}" %>

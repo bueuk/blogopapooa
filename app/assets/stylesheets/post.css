@@ -1,0 +1,23 @@
+body {
+  background-color: #f2f3f4;
+}
+
+img {
+  padding: 4px 8px 4px 0px;
+  border-radius: 5px;
+}
+
+.meta {
+  margin-bottom: 10px;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.content {
+  border-bottom: 1px solid;
+  border-bottom-color: #eeeceb;
+}
+
+
